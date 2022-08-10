@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>io.github.huypva</groupId>
+	<artifactId>grpc-client</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<com.google.api.grpc.version>1.18.0</com.google.api.grpc.version>
+		<com.google.protobuf.version>3.7.1</com.google.protobuf.version>
+		<io.grpc.version>1.37.0</io.grpc.version>
+		<kr.motd.maven.version>1.5.0.Final</kr.motd.maven.version>
+		<org.xolstice.maven.plugins.version>0.6.1</org.xolstice.maven.plugins.version>
+
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<!--  spring mvc, rest  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--		grpc-->
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+			<version>${io.grpc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>${io.grpc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>${io.grpc.version}</version>
+		</dependency>
+
+		<!--  lombok  -->
+		<dependency>
+			<artifactId>lombok</artifactId>
+			<groupId>org.projectlombok</groupId>
+			<optional>true</optional>
+		</dependency>
+
+		<!--  unit test  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+				<version>${kr.motd.maven.version}</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!--   gRPC compilation   -->
+			<plugin>
+				<groupId>org.xolstice.maven.plugins</groupId>
+				<artifactId>protobuf-maven-plugin</artifactId>
+				<version>${org.xolstice.maven.plugins.version}</version>
+				<configuration>
+					<pluginArtifact>
+						io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}
+					</pluginArtifact>
+					<pluginId>grpc-java</pluginId>
+					<protoSourceRoot>${basedir}/src/main/proto</protoSourceRoot>
+					<protocArtifact>
+						com.google.protobuf:protoc:${com.google.protobuf.version}:exe:${os.detected.classifier}
+					</protocArtifact>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>compile-custom</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

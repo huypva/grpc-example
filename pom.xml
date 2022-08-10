@@ -4,13 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.huypva</groupId>
-    <artifactId>spring-boot-template</artifactId>
+    <artifactId>grpc-example</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Parent</name>
 
     <modules>
-        <module>hello-world</module>
+        <module>grpc-server</module>
+        <module>grpc-client</module>
     </modules>
 
 </project>
