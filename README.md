@@ -1,5 +1,3 @@
-The example project for StringBoot service
-
 <div align="center">
     <img src="./assets/images/spring_boot_icon.png"/>
 </div>
@@ -9,49 +7,31 @@ The example project for StringBoot service
 ## Project structure
 ```
 .
-├── hello-world
-│   ├── Dockerfile
+├── grpc-client
 │   ...
-├── docker-compose.yaml
+├── grpc-server
+│   ...
 |
 └── README.md
-```
-
-## Prerequisites
-- Make sure that you have Docker and Docker Compose installed
-  - Windows or macOS:
-    [Install Docker Desktop](https://www.docker.com/get-started)
-  - Linux: [Install Docker](https://www.docker.com/get-started) and then
-    [Docker Compose](https://github.com/docker/compose)
-
-## Start infrastructure
-
-```shell script
-$ cd infrastructure
-$ docker-compose up -d
 ```
 
 ## Start services
 ### Start services in local
 
-- Build & start project
+- Build & start grpc-server 
 ```shell script
-$ cd hello-world
+$ cd grpc-server
 $ ../mvnw clean package
 $ ../mvnw spring-boot:run
 ...
 ```
 
-### Start services in docker 
-
+- Build & start grpc-server  
 ```shell script
-$ docker-compose -f ./docker-compose-service.yml -p spring-boot-service up -d
-```
-
-Run multiple instances
-
-```shell script
-$ docker-compose -f ./docker-compose-service.yml -p spring-boot-service up -d --scale hello-world=2
+$ cd grpc-client
+$ ../mvnw clean package
+$ ../mvnw spring-boot:run
+...
 ```
 
 ## Run testing
@@ -60,15 +40,11 @@ $ docker-compose -f ./docker-compose-service.yml -p spring-boot-service up -d --
 curl http://localhost:8081/greet?name=World
 ```
 
-## Stop project
+## Illustrate Interceptor Flow
 
-- Kill project if start in local mode
-- Stop infrastructure & services in docker
-
-```shell script
-$ docker-compose -f ./docker-compose-infrastructure.yml -p spring-boot-infrastructure down
-$ docker-compose -f ./docker-compose-service.yml -p spring-boot-service down
-```
+<div align="center">
+    <img src="./assets/images/interceptor.png"/>
+</div>
 
 ## Contributing
 
@@ -82,6 +58,6 @@ The code is open sourced. I encourage fellow developers to contribute and help i
 - Create new Pull Request
 
 ## Reference
-
+- https://engineering.kabu.com/entry/2021/03/31/162401
 ## License
 This project is licensed under the Apache License v2.0. Please see LICENSE.md located at the project's root for more details.
